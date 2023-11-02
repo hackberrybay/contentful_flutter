@@ -1,0 +1,29 @@
+name: contentful_flutter
+description: Contentful package for flutter
+version: 0.0.1+1
+publish_to: none
+
+environment:
+  sdk: ">=2.19.0 <3.0.0"
+  flutter: 3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # ... Code generation ...
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
+  # ... Network ...
+  http: ^1.1.0
+  retry: ^3.1.2
+  fpdart: ^1.1.0 # Functional programming to use the Either<> type
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+  very_good_analysis: ^4.0.0
+  # ... Code generation ...
+  freezed: ^2.4.5
+  json_serializable: ^6.7.1
+  build_runner: ^2.4.6

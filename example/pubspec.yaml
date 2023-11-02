@@ -1,0 +1,30 @@
+name: example
+description: An example app for the contentful_flutter package
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.1.1 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  # ... Utils ...
+  url_launcher: ^6.2.1
+  flutter_svg: ^2.0.9
+  # ... Code generation ...
+  freezed_annotation: ^2.4.1
+  # ... Package ...
+  contentful_flutter:
+    path: ../
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  freezed: ^2.4.5
+  build_runner: ^2.4.6
+
+flutter:
+  uses-material-design: true

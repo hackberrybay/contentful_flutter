@@ -1,0 +1,8 @@
+{
+  "name": "contentful-flutter-cli",
+  "scripts": {
+    "//Comment": " ----- Generate files ----- ",
+    "generate:files": "flutter pub get && flutter pub run build_runner build --delete-conflicting-outputs",
+    "generate:files:watch": "flutter pub get && flutter pub run build_runner watch --delete-conflicting-outputs"
+  }
+}
