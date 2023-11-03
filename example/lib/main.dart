@@ -72,16 +72,19 @@ class MyHomePage extends StatelessWidget {
                           ContentfulFlutterBuilder(
                             data: contentData,
                             includes: data.includes,
-                            textBuilder:
-                                (content, style, ignorePadding, padding) =>
-                                    Flexible(
-                              child: Text(
+                            textBuilder: (
+                              content,
+                              style,
+                              ignorePadding,
+                              padding,
+                            ) {
+                              return Text(
                                 content.value ?? '',
                                 style: style,
                                 softWrap: false,
                                 overflow: TextOverflow.visible,
-                              ),
-                            ),
+                              );
+                            },
                             blockQuoteBuilder: (child) {
                               return Row(
                                 children: [
