@@ -13,6 +13,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
     required this.data,
     required this.includes,
     required this.textBuilder,
+    required this.blockQuoteBuilder,
     required this.linkWidgetBuilder,
     required this.imageBuilder,
     required this.dividerBuilder,
@@ -45,6 +46,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
     bool ignoreTextPadding,
     EdgeInsets? padding,
   ) textBuilder;
+  final Widget Function(Widget child) blockQuoteBuilder;
   final Widget Function(
     String? url,
     Widget child,
@@ -111,6 +113,14 @@ class ContentfulFlutterBuilder extends StatelessWidget {
         ignoreTextPadding,
         const EdgeInsets.symmetric(horizontal: 16),
       );
+    } else if (nodeType.isBlockquote) {
+      return blockQuoteBuilder(
+        _buildContentfulWidget(
+          left(subContent!),
+          ignoreTextPadding: true,
+          isRow: false,
+        ),
+      );
     } else if (nodeType.isParagraph) {
       return _buildContentfulWidget(
         left(subContent!),
@@ -146,7 +156,9 @@ class ContentfulFlutterBuilder extends StatelessWidget {
       // If it is a list, the sublist should be a list of list items
       return Column(children: indexedList);
     }
-    return const Text('This text should not be shown, please report an error');
+    return const Text(
+      'This text should not be shown, please check it or open an issue in the repository',
+    );
   }
 
   Widget _buildContentfulWidget(

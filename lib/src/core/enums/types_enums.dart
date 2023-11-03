@@ -86,6 +86,10 @@ enum ContentfulContentNodeType {
   @JsonValue('heading-6')
   headingSix,
 
+  /// A blockquote. It contains a list of paragraph contents.
+  @JsonValue('blockquote')
+  blockquote,
+
   /// A paragraph. It contains a list of paragraph contents.
   @JsonValue('paragraph')
   paragraph,

@@ -46,6 +46,9 @@ class MyHomePage extends StatelessWidget {
             ),
           ),
           builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(child: Text(snapshot.error.toString()));
+            }
             if (snapshot.hasData) {
               final textStyle =
                   Theme.of(context).textTheme.bodyMedium ?? const TextStyle();
@@ -64,30 +67,59 @@ class MyHomePage extends StatelessWidget {
                         includes: data.includes,
                       );
                       if (contentData == null) return const SizedBox.shrink();
-                      return ContentfulFlutterBuilder(
-                        data: contentData,
-                        includes: data.includes,
-                        textBuilder: (content, style, ignorePadding, padding) =>
-                            Text(
-                          content.value ?? '',
-                          style: style,
-                        ),
-                        linkWidgetBuilder: (content, child) => InkWell(
-                          onTap: () => _launchUrl(Uri.parse(content ?? '')),
-                          child: child,
-                        ),
-                        imageBuilder: (imageUrl) => imageUrl.endsWith('svg')
-                            ? SvgPicture.network(imageUrl)
-                            : Image.network(imageUrl),
-                        dividerBuilder: () => const Divider(),
-                        listIdentationPadding: const EdgeInsets.only(left: 16),
-                        textStyle: textStyle,
-                        headingOneStyle: textStyle.copyWith(fontSize: 32),
-                        headingTwoStyle: textStyle.copyWith(fontSize: 24),
-                        headingThreeStyle: textStyle.copyWith(fontSize: 18),
-                        headingFourStyle: textStyle.copyWith(fontSize: 16),
-                        headingFiveStyle: textStyle.copyWith(fontSize: 14),
-                        headingSixStyle: textStyle.copyWith(fontSize: 12),
+                      return Column(
+                        children: [
+                          ContentfulFlutterBuilder(
+                            data: contentData,
+                            includes: data.includes,
+                            textBuilder:
+                                (content, style, ignorePadding, padding) =>
+                                    Flexible(
+                              child: Text(
+                                content.value ?? '',
+                                style: style,
+                                softWrap: false,
+                                overflow: TextOverflow.visible,
+                              ),
+                            ),
+                            blockQuoteBuilder: (child) {
+                              return Row(
+                                children: [
+                                  Flexible(
+                                    child: Container(
+                                      width: 3,
+                                      height: 40,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: child,
+                                  ),
+                                  const SizedBox(width: 8),
+                                ],
+                              );
+                            },
+                            linkWidgetBuilder: (content, child) => InkWell(
+                              onTap: () => _launchUrl(Uri.parse(content ?? '')),
+                              child: child,
+                            ),
+                            imageBuilder: (imageUrl) => imageUrl.endsWith('svg')
+                                ? SvgPicture.network(imageUrl)
+                                : Image.network(imageUrl),
+                            dividerBuilder: () => const Divider(),
+                            listIdentationPadding:
+                                const EdgeInsets.only(left: 16),
+                            textStyle: textStyle,
+                            headingOneStyle: textStyle.copyWith(fontSize: 32),
+                            headingTwoStyle: textStyle.copyWith(fontSize: 24),
+                            headingThreeStyle: textStyle.copyWith(fontSize: 18),
+                            headingFourStyle: textStyle.copyWith(fontSize: 16),
+                            headingFiveStyle: textStyle.copyWith(fontSize: 14),
+                            headingSixStyle: textStyle.copyWith(fontSize: 12),
+                          ),
+                          const SizedBox(height: 8)
+                        ],
                       );
                     },
                   ).toList(),

@@ -32,6 +32,9 @@ extension ContentfulContentNodeTypeX on ContentfulContentNodeType {
   /// Returns `true` if this [ContentfulContentNodeType] is a heading-6
   bool get isHeadingSix => this == ContentfulContentNodeType.headingSix;
 
+  /// Returns `true` if this [ContentfulContentNodeType] is a blockquote
+  bool get isBlockquote => this == ContentfulContentNodeType.blockquote;
+
   /// Returns `true` if this [ContentfulContentNodeType] is a paragraph
   bool get isParagraph => this == ContentfulContentNodeType.paragraph;
 
