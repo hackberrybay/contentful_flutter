@@ -60,14 +60,63 @@ class ContentfulFlutterBuilder extends StatelessWidget {
   final EdgeInsets listIdentationPadding;
 
   @override
-  Widget build(BuildContext context) => _buildContentfulWidget(
-        data,
-        ignoreTextPadding: false,
+  Widget build(BuildContext context) {
+    final textSpans = <InlineSpan>[];
+    return _buildContentfulWidget(
+      data,
+      ignoreTextPadding: false,
+      textSpans: textSpans,
+    );
+  }
+
+  Widget _buildHasHyperlinkWidget(
+    ContentfulContentNodeType nodeType,
+    Content content,
+    bool ignoreTextPadding,
+    List<InlineSpan> textSpans,
+  ) {
+    final subContent = content.subContent
+        ?.map(
+          (e) => e.copyWith(
+            parentNodeType: content.nodeType,
+          ),
+        )
+        .toList();
+    if (nodeType.isEntryHyperlink && entryHyperlinkBuilder != null) {
+      return entryHyperlinkBuilder!(
+        content.data!.target!.sys!.idOrNull!,
+        _buildContentfulWidget(
+          left(subContent!),
+          ignoreTextPadding: ignoreTextPadding,
+          isRow: true,
+          textSpans: textSpans,
+        ),
       );
+    }
+    final uri = nodeType.isHyperlink
+        ? content.data?.uri
+        : nodeType.isAssetHyperlink
+            ? getAssetUrlFrom(
+                assetId: content.data!.target!.sys!.idOrNull,
+                includes: includes,
+              )
+            : null;
+    if (uri == null) return const SizedBox.shrink();
+    return linkWidgetBuilder(
+      uri,
+      _buildContentfulWidget(
+        left(subContent!),
+        ignoreTextPadding: ignoreTextPadding,
+        isRow: true,
+        textSpans: textSpans,
+      ),
+    );
+  }
 
   Widget _buildContentItem(
     Content content, {
     required bool ignoreTextPadding,
+    required List<InlineSpan> textSpans,
     int? index,
   }) {
     final nodeType = content.nodeType;
@@ -76,32 +125,11 @@ class ContentfulFlutterBuilder extends StatelessWidget {
         ?.map((item) => item.copyWith(parentNodeType: content.parentNodeType))
         .toList();
     if (nodeType.hasHyperlink) {
-      if (nodeType.isEntryHyperlink && entryHyperlinkBuilder != null) {
-        return entryHyperlinkBuilder!(
-          content.data!.target!.sys!.idOrNull!,
-          _buildContentfulWidget(
-            left(subContent!),
-            ignoreTextPadding: ignoreTextPadding,
-            isRow: true,
-          ),
-        );
-      }
-      final uri = nodeType.isHyperlink
-          ? content.data!.uri
-          : nodeType.isAssetHyperlink
-              ? getAssetUrlFrom(
-                  assetId: content.data!.target!.sys!.idOrNull,
-                  includes: includes,
-                )
-              : null;
-      if (uri == null) return const SizedBox.shrink();
-      return linkWidgetBuilder(
-        uri,
-        _buildContentfulWidget(
-          left(subContent!),
-          ignoreTextPadding: ignoreTextPadding,
-          isRow: true,
-        ),
+      return _buildHasHyperlinkWidget(
+        nodeType,
+        content,
+        ignoreTextPadding,
+        textSpans,
       );
     } else if (nodeType.isEmbeddedAssetBlock) {
       final url = getAssetUrl(content);
@@ -119,14 +147,45 @@ class ContentfulFlutterBuilder extends StatelessWidget {
           left(subContent!),
           ignoreTextPadding: true,
           isRow: false,
+          textSpans: textSpans,
         ),
       );
     } else if (nodeType.isParagraph) {
-      return _buildContentfulWidget(
-        left(subContent!),
-        ignoreTextPadding: true,
-        isRow: true,
-      );
+      for (var i = 0; i < subContent!.length; i++) {
+        final item = subContent[i];
+        if (item.nodeType.isText) {
+          textSpans.add(
+            TextSpan(
+              text: item.value,
+              style: getTextStyle(item),
+            ),
+          );
+        } else if (item.nodeType.hasHyperlink) {
+          textSpans.add(
+            WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              style: getTextStyle(item),
+              child: _buildHasHyperlinkWidget(
+                item.nodeType,
+                item,
+                ignoreTextPadding,
+                textSpans,
+              ),
+            ),
+          );
+        } else {
+          _buildContentfulWidget(
+            left(item.subContent!),
+            ignoreTextPadding: ignoreTextPadding,
+            textSpans: textSpans,
+          );
+        }
+      }
+      if (textSpans.isEmpty) return const SizedBox.shrink();
+      final mySpans = [...textSpans];
+      final result = Text.rich(TextSpan(children: mySpans));
+      textSpans.clear();
+      return result;
     } else if (nodeType.isHeading) {
       final newList = subContent!
           .map((subItem) => subItem.copyWith(parentNodeType: nodeType))
@@ -135,6 +194,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
         left(newList),
         ignoreTextPadding: true,
         isRow: true,
+        textSpans: textSpans,
       );
     } else if (nodeType.isListItem) {
       final isOrderedList = content.parentNodeType?.isOrderedList ?? false;
@@ -164,6 +224,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
   Widget _buildContentfulWidget(
     ContentfulEitherDataType data, {
     required bool ignoreTextPadding,
+    required List<InlineSpan> textSpans,
     bool? isRow,
   }) {
     return data.fold(
@@ -173,6 +234,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
             item,
             ignoreTextPadding: ignoreTextPadding,
             index: index,
+            textSpans: textSpans,
           );
         }).toList();
         return isRow ?? false
@@ -199,6 +261,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
     double spaceBetween = 4,
     int? index,
   }) {
+    final textSpans = <InlineSpan>[];
     final firstItem = items.first;
     final dotStyle = _getStyleFrom(firstItem.nodeType, marks: firstItem.marks);
     return Row(
@@ -211,6 +274,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
             left(items),
             ignoreTextPadding: true,
             isRow: false,
+            textSpans: textSpans,
           ),
         ),
       ],
