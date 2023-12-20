@@ -16,8 +16,9 @@ class ContentfulDeliveryAPIRepository {
 
   Future<ContentfulDeliveryDataModel<T>> getEntries<T>({
     required T Function(Object?) fromJsonT,
+    String? envId,
   }) async {
-    const environmentId = 'master';
+    final environmentId = envId ?? 'master';
     final url =
         '$_baseUrl/spaces/${_client.spaceId}/environments/$environmentId/entries?access_token=${_client.accessToken}';
 
@@ -36,8 +37,9 @@ class ContentfulDeliveryAPIRepository {
   Future<Entry<T>?> getEntryFrom<T>({
     required T Function(Object?) fromJsonT,
     required String entryID,
+    String? envId,
   }) async {
-    const environmentId = 'master';
+    final environmentId = envId ?? 'master';
     final url =
         '$_baseUrl/spaces/${_client.spaceId}/environments/$environmentId/entries/$entryID?access_token=${_client.accessToken}';
 
