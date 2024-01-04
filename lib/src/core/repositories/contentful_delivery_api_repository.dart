@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:contentful_flutter/src/src.dart';
+import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
 
@@ -17,10 +18,12 @@ class ContentfulDeliveryAPIRepository {
   Future<ContentfulDeliveryDataModel<T>> getEntries<T>({
     required T Function(Object?) fromJsonT,
     String? envId,
+    Locale? locale,
   }) async {
     final environmentId = envId ?? 'master';
-    final url =
-        '$_baseUrl/spaces/${_client.spaceId}/environments/$environmentId/entries?access_token=${_client.accessToken}';
+    final url = '$_baseUrl/spaces/${_client.spaceId}/environments'
+        '/$environmentId/entries?access_token=${_client.accessToken}'
+        '&locale=${locale?.countryCode ?? 'en-US'}';
 
     final response = await http.get(Uri.parse(url));
 
