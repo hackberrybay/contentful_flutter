@@ -4,7 +4,6 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:contentful_flutter/src/src.dart';
-import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
 
@@ -17,21 +16,23 @@ class ContentfulDeliveryAPIRepository {
 
   Future<ContentfulDeliveryDataModel<T>> getEntries<T>({
     required T Function(Object?) fromJsonT,
-    String? envId,
-    Locale? locale,
+    required String modelName,
   }) async {
-    final environmentId = envId ?? 'master';
     final url = '$_baseUrl/spaces/${_client.spaceId}/environments'
-        '/$environmentId/entries?access_token=${_client.accessToken}'
-        '&locale=${locale?.countryCode ?? 'en-US'}';
+        '/${_client.environmentId}/entries?access_token=${_client.accessToken}'
+        '&locale=${_client.locale.languageCode}';
 
     final response = await http.get(Uri.parse(url));
-
     if (response.statusCode == 200) {
       final body = response.body;
       final jsonBody = jsonDecode(body) as Map<String, dynamic>?;
       if (jsonBody == null) return throw Exception('Failed to load data');
-      return ContentfulDeliveryDataModel.fromJson(jsonBody, fromJsonT);
+      final result = ContentfulDeliveryDataModel.fromJson(
+        jsonBody,
+        fromJsonT,
+        modelName: modelName,
+      );
+      return result;
     } else {
       throw Exception('Failed to load article');
     }
