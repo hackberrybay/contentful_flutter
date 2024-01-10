@@ -105,6 +105,18 @@ class ContentfulDeliveryAPIRepository {
   final ContentfulClient _client;
 }
 
+/// Returns [AssetField] from [assetId] and [includes]
+AssetField? getAssetDataFrom({
+  required String assetId,
+  required Includes includes,
+}) {
+  final asset = _getAssetFromEntry(
+    assetId: assetId,
+    includes: includes,
+  );
+  return asset?.fields;
+}
+
 String? getAssetUrlFrom({
   Asset? asset,
   String? assetId,
