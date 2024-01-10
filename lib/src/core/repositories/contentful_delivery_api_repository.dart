@@ -16,19 +16,23 @@ class ContentfulDeliveryAPIRepository {
 
   Future<ContentfulDeliveryDataModel<T>> getEntries<T>({
     required T Function(Object?) fromJsonT,
-    String? envId,
+    required String modelName,
   }) async {
-    final environmentId = envId ?? 'master';
-    final url =
-        '$_baseUrl/spaces/${_client.spaceId}/environments/$environmentId/entries?access_token=${_client.accessToken}';
+    final url = '$_baseUrl/spaces/${_client.spaceId}/environments'
+        '/${_client.environmentId}/entries?access_token=${_client.accessToken}'
+        '&locale=${_client.locale.languageCode}';
 
     final response = await http.get(Uri.parse(url));
-
     if (response.statusCode == 200) {
       final body = response.body;
       final jsonBody = jsonDecode(body) as Map<String, dynamic>?;
       if (jsonBody == null) return throw Exception('Failed to load data');
-      return ContentfulDeliveryDataModel.fromJson(jsonBody, fromJsonT);
+      final result = ContentfulDeliveryDataModel.fromJson(
+        jsonBody,
+        fromJsonT,
+        modelName: modelName,
+      );
+      return result;
     } else {
       throw Exception('Failed to load article');
     }
