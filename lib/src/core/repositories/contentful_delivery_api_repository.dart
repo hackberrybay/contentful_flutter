@@ -21,10 +21,9 @@ class ContentfulDeliveryAPIRepository {
     final url = '$_baseUrl/spaces/${_client.spaceId}/environments'
         '/${_client.environmentId}/entries?access_token=${_client.accessToken}'
         '&locale=${_client.locale.languageCode}';
-
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      final body = response.body;
+      final body = utf8.decode(response.bodyBytes);
       final jsonBody = jsonDecode(body) as Map<String, dynamic>?;
       if (jsonBody == null) return throw Exception('Failed to load data');
       final result = ContentfulDeliveryDataModel.fromJson(
@@ -44,12 +43,13 @@ class ContentfulDeliveryAPIRepository {
     String? envId,
   }) async {
     final environmentId = envId ?? 'master';
-    final url =
-        '$_baseUrl/spaces/${_client.spaceId}/environments/$environmentId/entries/$entryID?access_token=${_client.accessToken}';
+    final url = '$_baseUrl/spaces/${_client.spaceId}'
+        '/environments/$environmentId/entries/'
+        '$entryID?access_token=${_client.accessToken}';
 
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      final body = response.body;
+      final body = utf8.decode(response.bodyBytes);
       final jsonBody = jsonDecode(body) as Map<String, dynamic>?;
       if (jsonBody == null) return null;
       return Entry.fromJson(jsonBody, fromJsonT);
