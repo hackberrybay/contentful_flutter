@@ -14,6 +14,8 @@ class ContentfulDeliveryAPIRepository {
   })  : _client = client,
         _baseUrl = baseUrl;
 
+  /// Fetch and parse the given type of Contentful model.
+  /// Parses the language to utf8. Throws Exception on error.
   Future<ContentfulDeliveryDataModel<T>> getEntries<T>({
     required T Function(Object?) fromJsonT,
     required String modelName,
@@ -37,6 +39,8 @@ class ContentfulDeliveryAPIRepository {
     }
   }
 
+  /// Fetch and parse the given type of Data Entry.
+  /// Parses the language to utf8. Throws Exception on error.
   Future<Entry<T>?> getEntryFrom<T>({
     required T Function(Object?) fromJsonT,
     required String entryID,
