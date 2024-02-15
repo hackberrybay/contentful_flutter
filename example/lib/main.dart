@@ -44,7 +44,7 @@ class MyHomePage extends StatelessWidget {
               json as Map<String, dynamic>,
               (json) => ExampleDataModel.fromJson(json as Map<String, dynamic>),
             ),
-            modelName: 'example',
+            contentType: 'example',
           ),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
