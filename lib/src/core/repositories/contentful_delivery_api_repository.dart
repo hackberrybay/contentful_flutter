@@ -18,11 +18,11 @@ class ContentfulDeliveryAPIRepository {
   /// Parses the language to utf8. Throws Exception on error.
   Future<ContentfulDeliveryDataModel<T>> getEntries<T>({
     required T Function(Object?) fromJsonT,
-    required String modelName,
+    required String contentType,
   }) async {
     final url = '$_baseUrl/spaces/${_client.spaceId}/environments'
         '/${_client.environmentId}/entries?access_token=${_client.accessToken}'
-        '&locale=${_client.locale.languageCode}';
+        '&locale=${_client.locale.languageCode}&content_type=$contentType';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final body = utf8.decode(response.bodyBytes);
@@ -31,7 +31,6 @@ class ContentfulDeliveryAPIRepository {
       final result = ContentfulDeliveryDataModel.fromJson(
         jsonBody,
         fromJsonT,
-        modelName: modelName,
       );
       return result;
     } else {
@@ -69,7 +68,10 @@ class ContentfulDeliveryAPIRepository {
     if ((sys.type?.isLink ?? false) &&
         (sys.linkType?.isAsset ?? false) &&
         includes != null) {
-      return getAssetUrlFrom(assetId: sys.idOrNull, includes: includes);
+      return getAssetUrlFrom(
+        assetId: sys.idOrNull,
+        includes: includes,
+      );
     }
     return null;
   }
