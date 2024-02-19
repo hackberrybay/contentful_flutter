@@ -6,6 +6,7 @@ import 'package:collection/collection.dart';
 import 'package:contentful_flutter/src/src.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 
 class ContentfulDeliveryAPIRepository {
   const ContentfulDeliveryAPIRepository({
@@ -19,11 +20,17 @@ class ContentfulDeliveryAPIRepository {
   Future<ContentfulDeliveryDataModel<T>> getEntries<T>({
     required T Function(Object?) fromJsonT,
     required String contentType,
+    Map<String, dynamic>? query,
   }) async {
-    final url = '$_baseUrl/spaces/${_client.spaceId}/environments'
+    final baseUrl = '$_baseUrl/spaces/${_client.spaceId}/environments'
         '/${_client.environmentId}/entries?access_token=${_client.accessToken}'
         '&locale=${_client.locale.languageCode}&content_type=$contentType';
+
+    // Append query parameters to the URL if provided
+    final url =
+        query != null ? '$baseUrl&${_buildQueryString(query)}' : baseUrl;
     final response = await http.get(Uri.parse(url));
+    Logger().i('Fetching entries response: ${response.statusCode}');
     if (response.statusCode == 200) {
       final body = utf8.decode(response.bodyBytes);
       final jsonBody = jsonDecode(body) as Map<String, dynamic>?;
@@ -159,4 +166,12 @@ Asset? _getAssetFromEntry({
     (asset) => asset.sys?.id == assetId,
   );
   return assetItem;
+}
+
+String _buildQueryString(Map<String, dynamic> queryParameters) {
+  return queryParameters.entries.map((entry) {
+    final key = Uri.encodeComponent(entry.key);
+    final value = Uri.encodeComponent(entry.value.toString());
+    return '$key=$value';
+  }).join('&');
 }
