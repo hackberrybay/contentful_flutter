@@ -1,6 +1,6 @@
 name: contentful_flutter
 description: Contentful package for flutter
-version: 0.0.1+1
+version: 0.0.2+3
 homepage: https://hackberry.se
 
 environment:
@@ -17,6 +17,7 @@ dependencies:
   retry: ^3.1.2
   fpdart: ^1.1.0 # Functional programming to use the Either<> type
   collection: ^1.18.0
+  logger: ^2.0.2+1
 
 dev_dependencies:
   flutter_test:

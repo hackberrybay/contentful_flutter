@@ -6,6 +6,7 @@ import 'package:collection/collection.dart';
 import 'package:contentful_flutter/src/src.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 
 class ContentfulDeliveryAPIRepository {
   const ContentfulDeliveryAPIRepository({
@@ -14,36 +15,51 @@ class ContentfulDeliveryAPIRepository {
   })  : _client = client,
         _baseUrl = baseUrl;
 
+  /// Fetch and parse the given type of Contentful model.
+  /// Parses the language to utf8. Throws Exception on error.
   Future<ContentfulDeliveryDataModel<T>> getEntries<T>({
     required T Function(Object?) fromJsonT,
+    required String contentType,
+    Map<String, dynamic>? query,
   }) async {
-    const environmentId = 'master';
+    final baseUrl = '$_baseUrl/spaces/${_client.spaceId}/environments'
+        '/${_client.environmentId}/entries?access_token=${_client.accessToken}'
+        '&locale=${_client.locale.languageCode}&content_type=$contentType';
+
+    // Append query parameters to the URL if provided
     final url =
-        '$_baseUrl/spaces/${_client.spaceId}/environments/$environmentId/entries?access_token=${_client.accessToken}';
-
+        query != null ? '$baseUrl&${_buildQueryString(query)}' : baseUrl;
     final response = await http.get(Uri.parse(url));
-
+    Logger().i('Fetching entries response: ${response.statusCode}');
     if (response.statusCode == 200) {
-      final body = response.body;
+      final body = utf8.decode(response.bodyBytes);
       final jsonBody = jsonDecode(body) as Map<String, dynamic>?;
       if (jsonBody == null) return throw Exception('Failed to load data');
-      return ContentfulDeliveryDataModel.fromJson(jsonBody, fromJsonT);
+      final result = ContentfulDeliveryDataModel.fromJson(
+        jsonBody,
+        fromJsonT,
+      );
+      return result;
     } else {
       throw Exception('Failed to load article');
     }
   }
 
+  /// Fetch and parse the given type of Data Entry.
+  /// Parses the language to utf8. Throws Exception on error.
   Future<Entry<T>?> getEntryFrom<T>({
     required T Function(Object?) fromJsonT,
     required String entryID,
+    String? envId,
   }) async {
-    const environmentId = 'master';
-    final url =
-        '$_baseUrl/spaces/${_client.spaceId}/environments/$environmentId/entries/$entryID?access_token=${_client.accessToken}';
+    final environmentId = envId ?? 'master';
+    final url = '$_baseUrl/spaces/${_client.spaceId}'
+        '/environments/$environmentId/entries/'
+        '$entryID?access_token=${_client.accessToken}';
 
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      final body = response.body;
+      final body = utf8.decode(response.bodyBytes);
       final jsonBody = jsonDecode(body) as Map<String, dynamic>?;
       if (jsonBody == null) return null;
       return Entry.fromJson(jsonBody, fromJsonT);
@@ -59,7 +75,10 @@ class ContentfulDeliveryAPIRepository {
     if ((sys.type?.isLink ?? false) &&
         (sys.linkType?.isAsset ?? false) &&
         includes != null) {
-      return getAssetUrlFrom(assetId: sys.idOrNull, includes: includes);
+      return getAssetUrlFrom(
+        assetId: sys.idOrNull,
+        includes: includes,
+      );
     }
     return null;
   }
@@ -99,6 +118,18 @@ class ContentfulDeliveryAPIRepository {
   final ContentfulClient _client;
 }
 
+/// Returns [AssetField] from [assetId] and [includes]
+AssetField? getAssetDataFrom({
+  required String assetId,
+  required Includes includes,
+}) {
+  final asset = _getAssetFromEntry(
+    assetId: assetId,
+    includes: includes,
+  );
+  return asset?.fields;
+}
+
 String? getAssetUrlFrom({
   Asset? asset,
   String? assetId,
@@ -135,4 +166,12 @@ Asset? _getAssetFromEntry({
     (asset) => asset.sys?.id == assetId,
   );
   return assetItem;
+}
+
+String _buildQueryString(Map<String, dynamic> queryParameters) {
+  return queryParameters.entries.map((entry) {
+    final key = Uri.encodeComponent(entry.key);
+    final value = Uri.encodeComponent(entry.value.toString());
+    return '$key=$value';
+  }).join('&');
 }
