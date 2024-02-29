@@ -104,8 +104,8 @@ class MyHomePage extends StatelessWidget {
                                 ],
                               );
                             },
-                            linkWidgetBuilder: (content, child) => InkWell(
-                              onTap: () => _launchUrl(Uri.parse(content ?? '')),
+                            linkWidgetBuilder: (uri, child) => InkWell(
+                              onTap: () => _launchUrl(Uri.parse(uri ?? '')),
                               child: child,
                             ),
                             imageBuilder: (imageUrl) => imageUrl.endsWith('svg')
