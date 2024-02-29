@@ -23,7 +23,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
-  very_good_analysis: ^4.0.0
+  very_good_analysis: ">=4.0.0 <6.0.0"
   # ... Code generation ...
   freezed: ^2.4.5
   json_serializable: ^6.7.1
