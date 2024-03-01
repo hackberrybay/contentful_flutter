@@ -4,9 +4,13 @@
 [![License: MIT][license_badge]][license_link]
 
 Contentful package for flutter, features included in the package:
+
 ✅ Get entries
+
 ✅ Get entry by Id
+
 ✅ The Entry is a generic type and could be defined in any way
+
 ✅ We implemented ContentfulFlutterBuilder so it saves you time to implement the widgets and the logic to return the article especially with bulleted and numbered lists.
 
 ## Installation 💻
