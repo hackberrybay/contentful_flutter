@@ -317,7 +317,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
       case ContentfulContentNodeType.headingSix:
         result = headingSixStyle;
         break;
-
+      // ignore: no_default_cases
       default:
         break;
     }

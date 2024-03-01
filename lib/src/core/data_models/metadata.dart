@@ -1,3 +1,7 @@
+import 'package:contentful_flutter/contentful_flutter.dart';
+import 'package:contentful_flutter/src/core/core.dart';
+import 'package:contentful_flutter/src/core/data_models/data_models.dart';
+import 'package:contentful_flutter/src/src.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'metadata.freezed.dart';

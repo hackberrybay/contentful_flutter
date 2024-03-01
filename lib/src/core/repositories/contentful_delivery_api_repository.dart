@@ -6,7 +6,6 @@ import 'package:collection/collection.dart';
 import 'package:contentful_flutter/src/src.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
 
 class ContentfulDeliveryAPIRepository {
   const ContentfulDeliveryAPIRepository({
@@ -30,7 +29,6 @@ class ContentfulDeliveryAPIRepository {
     final url =
         query != null ? '$baseUrl&${_buildQueryString(query)}' : baseUrl;
     final response = await http.get(Uri.parse(url));
-    Logger().i('Fetching entries response: ${response.statusCode}');
     if (response.statusCode == 200) {
       final body = utf8.decode(response.bodyBytes);
       final jsonBody = jsonDecode(body) as Map<String, dynamic>?;

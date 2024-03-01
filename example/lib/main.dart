@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({required this.title, super.key});
   final String title;
 
   @override
@@ -37,12 +37,13 @@ class MyHomePage extends StatelessWidget {
     );
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: FutureBuilder(
           future: repository.getEntries<Entry<ExampleDataModel>>(
             fromJsonT: (json) => Entry.fromJson(
-              json as Map<String, dynamic>,
-              (json) => ExampleDataModel.fromJson(json as Map<String, dynamic>),
+              json! as Map<String, dynamic>,
+              (json) =>
+                  ExampleDataModel.fromJson(json! as Map<String, dynamic>),
             ),
             contentType: 'example',
           ),
@@ -53,8 +54,7 @@ class MyHomePage extends StatelessWidget {
             if (snapshot.hasData) {
               final textStyle =
                   Theme.of(context).textTheme.bodyMedium ?? const TextStyle();
-              final data = snapshot.data
-                  as ContentfulDeliveryDataModel<Entry<ExampleDataModel>>;
+              final data = snapshot.data!;
               final bodyContents = data.items.first.fields.body.contentList;
 
               if (bodyContents?.isEmpty ?? true) return const SizedBox.shrink();
@@ -112,8 +112,6 @@ class MyHomePage extends StatelessWidget {
                                 ? SvgPicture.network(imageUrl)
                                 : Image.network(imageUrl),
                             dividerBuilder: () => const Divider(),
-                            listIdentationPadding:
-                                const EdgeInsets.only(left: 16),
                             textStyle: textStyle,
                             headingOneStyle: textStyle.copyWith(fontSize: 32),
                             headingTwoStyle: textStyle.copyWith(fontSize: 24),
@@ -122,7 +120,7 @@ class MyHomePage extends StatelessWidget {
                             headingFiveStyle: textStyle.copyWith(fontSize: 14),
                             headingSixStyle: textStyle.copyWith(fontSize: 12),
                           ),
-                          const SizedBox(height: 8)
+                          const SizedBox(height: 8),
                         ],
                       );
                     },
