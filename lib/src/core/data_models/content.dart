@@ -4,11 +4,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'content.freezed.dart';
 part 'content.g.dart';
 
-@freezed
-
 /// [Content] is usually non null when we have a node type of document or paragraph.
 /// It contains a list of paragraph contents.
 /// And if it is a document it contains a list of different node types.
+@freezed
 class Content with _$Content {
   /// [Content] is usually non null when we have a node type of document or paragraph.
   /// It contains a list of paragraph contents.
