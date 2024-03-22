@@ -1,3 +1,7 @@
+# 0.0.9
+
+- Added topics in pubspec.yaml
+
 # 0.0.8
 
 - Added repository link in pubspec.yaml
