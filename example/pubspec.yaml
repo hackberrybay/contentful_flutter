@@ -6,6 +6,9 @@ version: 1.0.0+1
 environment:
   sdk: ">=3.1.1 <4.0.0"
 
+dependency_overrides: 
+  collection: ^1.17.2
+
 dependencies:
   flutter:
     sdk: flutter

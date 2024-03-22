@@ -187,9 +187,8 @@ class ContentfulFlutterBuilder extends StatelessWidget {
       textSpans.clear();
       return result;
     } else if (nodeType.isHeading) {
-      final newList = subContent!
-          .map((subItem) => subItem.copyWith(parentNodeType: nodeType))
-          .toList();
+      final newList =
+          subContent!.map((subItem) => subItem.copyWith(parentNodeType: nodeType)).toList();
       return _buildContentfulWidget(
         left(newList),
         ignoreTextPadding: true,
@@ -325,8 +324,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
     final finalResult = (result ?? textStyle).copyWith(
       fontWeight: (marks?.hasBold ?? false) ? FontWeight.bold : null,
       fontStyle: (marks?.hasItalic ?? false) ? FontStyle.italic : null,
-      decoration:
-          (marks?.hasUnderline ?? false) ? TextDecoration.underline : null,
+      decoration: (marks?.hasUnderline ?? false) ? TextDecoration.underline : null,
     );
     return finalResult;
   }

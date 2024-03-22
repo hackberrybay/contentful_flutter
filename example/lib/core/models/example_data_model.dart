@@ -10,6 +10,5 @@ class ExampleDataModel with _$ExampleDataModel {
     required Document body,
   }) = _ExampleDataModel;
 
-  factory ExampleDataModel.fromJson(Map<String, dynamic> json) =>
-      _$ExampleDataModelFromJson(json);
+  factory ExampleDataModel.fromJson(Map<String, dynamic> json) => _$ExampleDataModelFromJson(json);
 }
