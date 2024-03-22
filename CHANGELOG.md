@@ -1,3 +1,7 @@
+# 0.0.7
+
+- Use lints core instead of vgv analyzer
+
 # 0.0.6
 
 - Embed demo video in readme file
