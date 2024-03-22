@@ -1,3 +1,7 @@
+# 0.0.13
+
+- Add screenshot to the package
+
 # 0.0.12
 
 - Deleted the screenshot from the readme file
