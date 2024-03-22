@@ -20,6 +20,5 @@ class Document with _$Document {
     ContentfulContentNodeType? nodeType,
   }) = _Document;
 
-  factory Document.fromJson(Map<String, dynamic> json) =>
-      _$DocumentFromJson(json);
+  factory Document.fromJson(Map<String, dynamic> json) => _$DocumentFromJson(json);
 }

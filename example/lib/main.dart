@@ -51,10 +51,8 @@ class MyHomePage extends StatelessWidget {
               return Center(child: Text(snapshot.error.toString()));
             }
             if (snapshot.hasData) {
-              final textStyle =
-                  Theme.of(context).textTheme.bodyMedium ?? const TextStyle();
-              final data = snapshot.data
-                  as ContentfulDeliveryDataModel<Entry<ExampleDataModel>>;
+              final textStyle = Theme.of(context).textTheme.bodyMedium ?? const TextStyle();
+              final data = snapshot.data as ContentfulDeliveryDataModel<Entry<ExampleDataModel>>;
               final bodyContents = data.items.first.fields.body.contentList;
 
               if (bodyContents?.isEmpty ?? true) return const SizedBox.shrink();
@@ -112,8 +110,7 @@ class MyHomePage extends StatelessWidget {
                                 ? SvgPicture.network(imageUrl)
                                 : Image.network(imageUrl),
                             dividerBuilder: () => const Divider(),
-                            listIdentationPadding:
-                                const EdgeInsets.only(left: 16),
+                            listIdentationPadding: const EdgeInsets.only(left: 16),
                             textStyle: textStyle,
                             headingOneStyle: textStyle.copyWith(fontSize: 32),
                             headingTwoStyle: textStyle.copyWith(fontSize: 24),
