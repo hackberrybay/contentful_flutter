@@ -39,9 +39,5 @@ topics:
   - contentful
   - platform
   - cms
-  - composableContentPlatform
-  - contentExperience
-  - contentDelivery
-  - contentManagement
-  - articlesMaker
-  - blogMaker
+  - article
+  - blog
