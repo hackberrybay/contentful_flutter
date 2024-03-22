@@ -1,3 +1,7 @@
+# 0.0.8
+
+- Added repository link in pubspec.yaml
+
 # 0.0.7
 
 - Use lints core instead of vgv analyzer
