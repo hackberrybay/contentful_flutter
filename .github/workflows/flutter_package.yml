@@ -1,6 +1,9 @@
 name: Flutter Package Workflow
 
 on:
+  pull_request:
+    branches:
+      - main
   workflow_call:
     inputs:
       analyze_directories:

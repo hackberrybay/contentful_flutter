@@ -18,9 +18,4 @@ jobs:
     with:
       includes: "**/*.md"
       modified_files_only: false
-
-  build:
-    uses: ./flutter_package.yml
-    with:
-      flutter_channel: stable
       
