@@ -1,3 +1,7 @@
+# 0.0.5
+
+- Changed the contentType parameter to optional
+
 # 0.0.4
 
 - Push generated files to the repo
