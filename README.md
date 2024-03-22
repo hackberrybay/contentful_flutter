@@ -16,8 +16,7 @@ Contentful package for flutter, features included in the package:
 
 ## Demo 
 
-<iframe width="640" height="480" src="https://drive.google.com/file/d/12pPb7vmAEEKaV-MJ4BqKsQx_v2vQ3-gO/preview" allow="autoplay" frameborder="0" allowfullscreen></iframe>
-
+https://github.com/hackberrybay/contentful_flutter/assets/34738373/b1b3e6fd-b531-4955-b190-dd386549db2e
 
 ## Installation 💻
 
