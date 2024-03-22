@@ -16,7 +16,7 @@ Contentful package for flutter, features included in the package:
 
 ## Demo 
 
-<img width="600" alt="contentful_ss" src="https://github.com/hackberrybay/contentful_flutter/assets/34738373/18f80409-171b-45ad-bada-75a0514eb07c">
+### Watch the video
 
 [![Watch the video](https://github.com/hackberrybay/contentful_flutter/assets/34738373/18f80409-171b-45ad-bada-75a0514eb07c)](https://github.com/hackberrybay/contentful_flutter/assets/34738373/b1b3e6fd-b531-4955-b190-dd386549db2e)
 

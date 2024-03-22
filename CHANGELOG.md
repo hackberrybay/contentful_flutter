@@ -1,3 +1,7 @@
+# 0.0.12
+
+- Deleted the screenshot from the readme file
+
 # 0.0.11
 
 - Added example app screenshot to the readme file
