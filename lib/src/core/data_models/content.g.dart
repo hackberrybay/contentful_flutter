@@ -6,13 +6,17 @@ part of 'content.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ContentImpl _$$ContentImplFromJson(Map<String, dynamic> json) => _$ContentImpl(
-      nodeType: $enumDecode(_$ContentfulContentNodeTypeEnumMap, json['nodeType']),
+_$ContentImpl _$$ContentImplFromJson(Map<String, dynamic> json) =>
+    _$ContentImpl(
+      nodeType:
+          $enumDecode(_$ContentfulContentNodeTypeEnumMap, json['nodeType']),
       parentNodeType: $enumDecodeNullable(
         _$ContentfulContentNodeTypeEnumMap,
         json['parentNodeType'],
       ),
-      data: json['data'] == null ? null : Data.fromJson(json['data'] as Map<String, dynamic>),
+      data: json['data'] == null
+          ? null
+          : Data.fromJson(json['data'] as Map<String, dynamic>),
       subContent: (json['content'] as List<dynamic>?)
           ?.map((e) => Content.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -22,9 +26,11 @@ _$ContentImpl _$$ContentImplFromJson(Map<String, dynamic> json) => _$ContentImpl
       value: json['value'] as String?,
     );
 
-Map<String, dynamic> _$$ContentImplToJson(_$ContentImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$$ContentImplToJson(_$ContentImpl instance) =>
+    <String, dynamic>{
       'nodeType': _$ContentfulContentNodeTypeEnumMap[instance.nodeType]!,
-      'parentNodeType': _$ContentfulContentNodeTypeEnumMap[instance.parentNodeType],
+      'parentNodeType':
+          _$ContentfulContentNodeTypeEnumMap[instance.parentNodeType],
       'data': instance.data,
       'content': instance.subContent,
       'marks': instance.marks,
