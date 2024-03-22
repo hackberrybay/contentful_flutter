@@ -1,3 +1,7 @@
+# 0.0.6
+
+- Embed demo video in readme file
+
 # 0.0.5
 
 - Changed the contentType parameter to optional
