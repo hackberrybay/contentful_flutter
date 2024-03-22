@@ -17,6 +17,7 @@ class Content with _$Content {
     required ContentfulContentNodeType nodeType,
     ContentfulContentNodeType? parentNodeType,
     Data? data,
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'content') List<Content>? subContent,
     List<ContentfulTextMark>? marks,
 

@@ -16,6 +16,7 @@ class Document with _$Document {
   /// The [contentList] are the entries that are returned from the API.
   /// The [nodeType] is the type of the node that is returned from the API.
   const factory Document({
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'content') List<Content>? contentList,
     ContentfulContentNodeType? nodeType,
   }) = _Document;
