@@ -19,26 +19,23 @@ class ContentfulDeliveryAPIRepository {
   /// Parses the language to utf8. Throws Exception on error.
   Future<ContentfulDeliveryDataModel<T>> getEntries<T>({
     required T Function(Object?) fromJsonT,
-    required String contentType,
+    String? contentType,
     Map<String, dynamic>? query,
   }) async {
+    final contentTypeParam = contentType != null ? '&content_type=$contentType' : '';
     final baseUrl = '$_baseUrl/spaces/${_client.spaceId}/environments'
         '/${_client.environmentId}/entries?access_token=${_client.accessToken}'
-        '&locale=${_client.locale.languageCode}&content_type=$contentType';
+        '&locale=${_client.locale.languageCode}$contentTypeParam';
 
     // Append query parameters to the URL if provided
-    final url =
-        query != null ? '$baseUrl&${_buildQueryString(query)}' : baseUrl;
+    final url = query != null ? '$baseUrl&${_buildQueryString(query)}' : baseUrl;
     final response = await http.get(Uri.parse(url));
     Logger().i('Fetching entries response: ${response.statusCode}');
     if (response.statusCode == 200) {
       final body = utf8.decode(response.bodyBytes);
       final jsonBody = jsonDecode(body) as Map<String, dynamic>?;
       if (jsonBody == null) return throw Exception('Failed to load data');
-      final result = ContentfulDeliveryDataModel.fromJson(
-        jsonBody,
-        fromJsonT,
-      );
+      final result = ContentfulDeliveryDataModel.fromJson(jsonBody, fromJsonT);
       return result;
     } else {
       throw Exception('Failed to load article');
@@ -72,9 +69,7 @@ class ContentfulDeliveryAPIRepository {
     required Sys sys,
     required Includes? includes,
   }) {
-    if ((sys.type?.isLink ?? false) &&
-        (sys.linkType?.isAsset ?? false) &&
-        includes != null) {
+    if ((sys.type?.isLink ?? false) && (sys.linkType?.isAsset ?? false) && includes != null) {
       return getAssetUrlFrom(
         assetId: sys.idOrNull,
         includes: includes,
@@ -89,10 +84,9 @@ class ContentfulDeliveryAPIRepository {
   }) {
     final modifiedContent = content.copyWith(
       parentNodeType: content.parentNodeType,
-      subContent: content.subContent
-              ?.map((e) => e.copyWith(parentNodeType: content.nodeType))
-              .toList() ??
-          [],
+      subContent:
+          content.subContent?.map((e) => e.copyWith(parentNodeType: content.nodeType)).toList() ??
+              [],
     );
     final nodeType = modifiedContent.nodeType;
     final subContent = modifiedContent.subContent;
