@@ -16,7 +16,8 @@ Contentful package for flutter, features included in the package:
 
 ## Demo 
 
-<iframe src="https://drive.google.com/file/d/12pPb7vmAEEKaV-MJ4BqKsQx_v2vQ3-gO/preview" width="640" height="480" allow="autoplay"></iframe>
+<iframe width="640" height="480" src="https://drive.google.com/file/d/12pPb7vmAEEKaV-MJ4BqKsQx_v2vQ3-gO/preview" allow="autoplay" frameborder="0" allowfullscreen></iframe>
+
 
 ## Installation 💻
 
