@@ -1,6 +1,6 @@
 name: contentful_flutter
 description: The Contentful Flutter SDK is a Dart package that allows you to access the Contentful Content Delivery API from your Flutter app.
-version: 0.0.4
+version: 0.0.5
 homepage: https://hackberry.se
 
 environment:
