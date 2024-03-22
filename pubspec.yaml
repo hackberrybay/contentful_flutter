@@ -34,3 +34,14 @@ dev_dependencies:
   build_runner: ^2.4.6
   # ... Linting ...
   lints: ^3.0.0
+
+topics:
+  - contentful
+  - platform
+  - cms
+  - composableContentPlatform
+  - contentExperience
+  - contentDelivery
+  - contentManagement
+  - articlesMaker
+  - blogMaker
