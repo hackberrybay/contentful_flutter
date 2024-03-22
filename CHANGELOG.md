@@ -1,3 +1,7 @@
+# 0.0.10
+
+- Change video url in README.md file
+
 # 0.0.9
 
 - Added topics in pubspec.yaml
