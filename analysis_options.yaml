@@ -1,1 +1,19 @@
 include: package:very_good_analysis/analysis_options.4.0.0.yaml
+
+analyzer:
+  errors:
+    invalid_annotation_target: ignore
+  exclude:
+    - test/**
+    - lib/**.g.dart
+    - lib/**.freezed.dart
+
+linter:
+  rules:
+    avoid_print: false
+    public_member_api_docs: false
+    lines_longer_than_80_chars: false
+    avoid_positional_boolean_parameters: false
+    no_default_cases: false
+    comment_references: false
+    sort_pub_dependencies: false
