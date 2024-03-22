@@ -1,3 +1,7 @@
+# 0.0.11
+
+- Added example app screenshot to the readme file
+
 # 0.0.10
 
 - Change video url in README.md file
