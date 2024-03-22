@@ -6,6 +6,9 @@ homepage: https://hackberry.se
 environment:
   sdk: ">=2.19.0 <4.0.0"
 
+dependency_overrides: 
+  collection: ^1.17.2
+
 dependencies:
   flutter:
     sdk: flutter
