@@ -41,7 +41,3 @@ app.*.map.json
 
 # Test related
 coverage
-
-# Ignore the generated files
-**/*.g.dart
-**/*.freezed.dart
