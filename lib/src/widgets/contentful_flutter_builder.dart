@@ -42,7 +42,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
     Content textContent,
     TextStyle style,
     EdgeInsets? padding, {
-    bool ignoreTextPadding,
+    bool? ignoreTextPadding,
   }) textBuilder;
   final Widget Function(Widget child) blockQuoteBuilder;
   final Widget Function(

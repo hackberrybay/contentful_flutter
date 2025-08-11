@@ -78,7 +78,7 @@ class MyHomePage extends StatelessWidget {
                               content,
                               style,
                               padding, {
-                              bool ignoreTextPadding = false,
+                              bool? ignoreTextPadding,
                             }) {
                               return Text(
                                 content.value ?? '',
