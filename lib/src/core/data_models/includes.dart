@@ -14,7 +14,6 @@ class Includes with _$Includes {
   /// It's a part of the [ContentfulDeliveryDataModel] and is used to
   /// retrieve the assets and linked entries from the [Entry]s.
   const factory Includes({
-    // ignore: invalid_annotation_target
     @JsonKey(name: 'Asset') List<Asset>? assetList,
   }) = _Includes;
 

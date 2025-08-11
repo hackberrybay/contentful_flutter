@@ -8,12 +8,14 @@ part 'sys.g.dart';
 
 /// [Sys] is the system information that is returned from the Contentful API.
 /// It contains the [type], [linkType] and [id] of the entry.
-/// We use it to define if the returned data is of type [Entry] or [Asset] or link.
+/// We use it to define if the returned data is of type [Entry] or [Asset] or
+/// link.
 /// And from that you could return the desired widget or data.
 class Sys with _$Sys {
   /// [Sys] is the system information that is returned from the Contentful API.
   /// It contains the [type], [linkType] and [id] of the entry.
-  /// We use it to define if the returned data is of type [Entry] or [Asset] or link.
+  /// We use it to define if the returned data is of type [Entry] or [Asset]
+  /// or link.
   /// And from that you could return the desired widget or data.
   const factory Sys({
     ContentfulItemType? type,

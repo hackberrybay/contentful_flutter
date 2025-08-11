@@ -1,1 +1,14 @@
-include: package:very_good_analysis/analysis_options.4.0.0.yaml
+include: package:very_good_analysis/analysis_options.8.0.0.yaml
+analyzer:
+  exclude:
+    - lib/**.g.dart
+    - lib/**.freezed.dart
+    - packages/contentful_flutter/**
+  errors:
+    invalid_annotation_target: ignore
+
+linter:
+  rules:
+    public_member_api_docs: false
+    no_default_cases: false
+    sort_pub_dependencies: false

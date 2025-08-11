@@ -21,5 +21,6 @@ class Asset with _$Asset {
     AssetField? fields,
   }) = _Asset;
 
+  /// Factory method to create an [Asset] instance from a JSON map.
   factory Asset.fromJson(Map<String, dynamic> json) => _$AssetFromJson(json);
 }

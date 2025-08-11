@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs
-
 import 'package:contentful_flutter/contentful_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
@@ -43,9 +41,9 @@ class ContentfulFlutterBuilder extends StatelessWidget {
   final Widget Function(
     Content textContent,
     TextStyle style,
+    EdgeInsets? padding, {
     bool ignoreTextPadding,
-    EdgeInsets? padding,
-  ) textBuilder;
+  }) textBuilder;
   final Widget Function(Widget child) blockQuoteBuilder;
   final Widget Function(
     String? url,
@@ -138,7 +136,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
       return textBuilder(
         content,
         getTextStyle(content),
-        ignoreTextPadding,
+        ignoreTextPadding: ignoreTextPadding,
         const EdgeInsets.symmetric(horizontal: 16),
       );
     } else if (nodeType.isBlockquote) {
@@ -198,7 +196,8 @@ class ContentfulFlutterBuilder extends StatelessWidget {
       );
     } else if (nodeType.isListItem) {
       final isOrderedList = content.parentNodeType?.isOrderedList ?? false;
-      // If it is a list item, the sublist a list of paragraphs or assets or lists
+      // If it is a list item, the sublist a list of paragraphs or assets or
+      // lists
       return Padding(
         padding: listIdentationPadding,
         child: _buildListItem(subContent!, index: isOrderedList ? index : null),
@@ -217,7 +216,8 @@ class ContentfulFlutterBuilder extends StatelessWidget {
       return Column(children: indexedList);
     }
     return const Text(
-      'This text should not be shown, please check it or open an issue in the repository',
+      'This text should not be shown, please check it or open an issue in the'
+      ' repository',
     );
   }
 
@@ -301,23 +301,16 @@ class ContentfulFlutterBuilder extends StatelessWidget {
     switch (type) {
       case ContentfulContentNodeType.headingOne:
         result = headingOneStyle;
-        break;
       case ContentfulContentNodeType.headingTwo:
         result = headingTwoStyle;
-        break;
       case ContentfulContentNodeType.headingThree:
         result = headingThreeStyle;
-        break;
       case ContentfulContentNodeType.headingFour:
         result = headingFourStyle;
-        break;
       case ContentfulContentNodeType.headingFive:
         result = headingFiveStyle;
-        break;
       case ContentfulContentNodeType.headingSix:
         result = headingSixStyle;
-        break;
-
       default:
         break;
     }

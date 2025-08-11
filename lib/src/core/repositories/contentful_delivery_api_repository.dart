@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, depend_on_referenced_packages
-
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
