@@ -31,7 +31,7 @@ dev_dependencies:
   mocktail: ^0.3.0
   very_good_analysis: ^4.0.0
   # ... Code generation ...
-  freezed: ^2.4.5
+  freezed: ">=2.4.5 <4.0.0"
   json_serializable: ^6.7.1
   build_runner: ^2.4.6
   # ... Linting ...
