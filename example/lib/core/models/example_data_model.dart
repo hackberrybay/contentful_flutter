@@ -5,7 +5,7 @@ part 'example_data_model.freezed.dart';
 part 'example_data_model.g.dart';
 
 @freezed
-class ExampleDataModel with _$ExampleDataModel {
+abstract class ExampleDataModel with _$ExampleDataModel {
   const factory ExampleDataModel({
     required Document body,
   }) = _ExampleDataModel;
