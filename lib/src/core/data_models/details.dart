@@ -10,7 +10,7 @@ part 'details.g.dart';
 /// The details are specific to the asset content type.
 /// For example if the asset is an image, the details will contain the size,
 /// the dimensions and the content type.
-class Details with _$Details {
+abstract class Details with _$Details {
   /// [Details] contains the [Asset] and the [AssetField] details.
   /// The details are specific to the asset content type.
   /// For example if the asset is an image, the details will contain the size,

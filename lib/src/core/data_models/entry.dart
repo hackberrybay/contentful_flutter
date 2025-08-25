@@ -7,7 +7,7 @@ part 'entry.g.dart';
 @Freezed(genericArgumentFactories: true)
 
 /// The model of Contentful Entry
-class Entry<T> with _$Entry<T> {
+abstract class Entry<T> with _$Entry<T> {
   /// The constructor of Contentful Entry Model
   const factory Entry({
     required T fields,

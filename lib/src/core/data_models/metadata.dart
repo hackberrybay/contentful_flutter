@@ -10,7 +10,7 @@ part 'metadata.g.dart';
 /// It's usually in the items and the includes asset returned from the
 /// delivery API in the [ContentfulDeliveryDataModel]
 /// It's also used in the [Entry] to store the tags of the entry.
-class Metadata with _$Metadata {
+abstract class Metadata with _$Metadata {
   /// [Metadata] contains the tags of the entry.
   /// It's usually in the items and the includes asset returned from the
   /// delivery API in the [ContentfulDeliveryDataModel]

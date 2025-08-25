@@ -10,7 +10,7 @@ part 'content.g.dart';
 /// paragraph.
 /// It contains a list of paragraph contents.
 /// And if it is a document it contains a list of different node types.
-class Content with _$Content {
+abstract class Content with _$Content {
   /// [Content] is usually non null when we have a node type of document or
   /// paragraph.
   /// It contains a list of paragraph contents.
