@@ -10,7 +10,7 @@ part 'asset.g.dart';
 /// It has the link in the [AssetField] to the actual file.
 /// Also we could find different details in side the [AssetField] concerning
 /// the size and content type of the file.
-class Asset with _$Asset {
+abstract class Asset with _$Asset {
   /// [Asset] is a file that is stored in Contentful.
   /// It has the link in the [AssetField] to the actual file.
   /// Also we could find different details in side the [AssetField] concerning
@@ -21,5 +21,6 @@ class Asset with _$Asset {
     AssetField? fields,
   }) = _Asset;
 
+  /// Factory method to create an [Asset] instance from a JSON map.
   factory Asset.fromJson(Map<String, dynamic> json) => _$AssetFromJson(json);
 }

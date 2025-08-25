@@ -1,4 +1,4 @@
 /// Contentful package for flutter
-library contentful_flutter;
+library;
 
 export 'src/src.dart';

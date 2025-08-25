@@ -5,7 +5,7 @@ part 'data.freezed.dart';
 part 'data.g.dart';
 
 @freezed
-class Data with _$Data {
+abstract class Data with _$Data {
   const factory Data({
     Target? target,
     String? uri,

@@ -10,7 +10,7 @@ part 'file_field.g.dart';
 /// The details are the url, the size, the content type and the fileName.
 /// also the dimensions and the size of the image if it's an image.
 /// The [FileField] is usually inside the [AssetField].
-class FileField with _$FileField {
+abstract class FileField with _$FileField {
   /// [FileField] contains the url of the file and the details of the file.
   /// The details are the url, the size, the content type and the fileName.
   /// also the dimensions and the size of the image if it's an image.
