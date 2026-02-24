@@ -5,7 +5,6 @@ part 'content.freezed.dart';
 part 'content.g.dart';
 
 @freezed
-
 /// [Content] is usually non null when we have a node type of document or
 /// paragraph.
 /// It contains a list of paragraph contents.

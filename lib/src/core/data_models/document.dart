@@ -5,7 +5,6 @@ part 'document.freezed.dart';
 part 'document.g.dart';
 
 @freezed
-
 /// [Document] is the base model for the contentful rich text document.
 /// It contains the [contentList] that is returned from the API.
 /// The [contentList] are the entries that are returned from the API.

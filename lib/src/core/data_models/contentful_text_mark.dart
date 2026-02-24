@@ -6,9 +6,8 @@ part 'contentful_text_mark.g.dart';
 
 @freezed
 abstract class ContentfulTextMark with _$ContentfulTextMark {
-  const factory ContentfulTextMark({
-    ContentfulTextMarksEnum? type,
-  }) = _ContentfulTextMark;
+  const factory ContentfulTextMark({ContentfulTextMarksEnum? type}) =
+      _ContentfulTextMark;
 
   factory ContentfulTextMark.fromJson(Map<String, dynamic> json) =>
       _$ContentfulTextMarkFromJson(json);

@@ -6,10 +6,7 @@ part 'data.g.dart';
 
 @freezed
 abstract class Data with _$Data {
-  const factory Data({
-    Target? target,
-    String? uri,
-  }) = _Data;
+  const factory Data({Target? target, String? uri}) = _Data;
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 }

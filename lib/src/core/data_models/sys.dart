@@ -5,7 +5,6 @@ part 'sys.freezed.dart';
 part 'sys.g.dart';
 
 @freezed
-
 /// [Sys] is the system information that is returned from the Contentful API.
 /// It contains the [type], [linkType] and [id] of the entry.
 /// We use it to define if the returned data is of type [Entry] or [Asset] or

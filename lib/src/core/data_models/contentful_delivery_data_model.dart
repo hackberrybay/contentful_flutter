@@ -5,7 +5,6 @@ part 'contentful_delivery_data_model.freezed.dart';
 part 'contentful_delivery_data_model.g.dart';
 
 @Freezed(genericArgumentFactories: true)
-
 /// [ContentfulDeliveryDataModel] is the base model for the contentful delivery
 /// API
 /// returned from the API.
@@ -41,6 +40,5 @@ abstract class ContentfulDeliveryDataModel<T>
   factory ContentfulDeliveryDataModel.fromJson(
     Map<String, dynamic> json,
     T Function(Object?) fromJsonT,
-  ) =>
-      _$ContentfulDeliveryDataModelFromJson(json, fromJsonT);
+  ) => _$ContentfulDeliveryDataModelFromJson(json, fromJsonT);
 }

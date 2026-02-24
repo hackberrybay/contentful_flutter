@@ -10,8 +10,8 @@ class ContentfulDeliveryAPIRepository {
   const ContentfulDeliveryAPIRepository({
     required ContentfulClient client,
     String baseUrl = 'https://cdn.contentful.com',
-  })  : _client = client,
-        _baseUrl = baseUrl;
+  }) : _client = client,
+       _baseUrl = baseUrl;
 
   /// Fetch and parse the given type of Contentful model.
   /// Parses the language to utf8. Throws Exception on error.
@@ -20,23 +20,22 @@ class ContentfulDeliveryAPIRepository {
     required String contentType,
     Map<String, dynamic>? query,
   }) async {
-    final baseUrl = '$_baseUrl/spaces/${_client.spaceId}/environments'
+    final baseUrl =
+        '$_baseUrl/spaces/${_client.spaceId}/environments'
         '/${_client.environmentId}/entries?access_token=${_client.accessToken}'
         '&locale=${_client.locale.languageCode}&content_type=$contentType';
 
     // Append query parameters to the URL if provided
-    final url =
-        query != null ? '$baseUrl&${_buildQueryString(query)}' : baseUrl;
+    final url = query != null
+        ? '$baseUrl&${_buildQueryString(query)}'
+        : baseUrl;
     final response = await http.get(Uri.parse(url));
     Logger().i('Fetching entries response: ${response.statusCode}');
     if (response.statusCode == 200) {
       final body = utf8.decode(response.bodyBytes);
       final jsonBody = jsonDecode(body) as Map<String, dynamic>?;
       if (jsonBody == null) return throw Exception('Failed to load data');
-      final result = ContentfulDeliveryDataModel.fromJson(
-        jsonBody,
-        fromJsonT,
-      );
+      final result = ContentfulDeliveryDataModel.fromJson(jsonBody, fromJsonT);
       return result;
     } else {
       throw Exception('Failed to load article');
@@ -51,7 +50,8 @@ class ContentfulDeliveryAPIRepository {
     String? envId,
   }) async {
     final environmentId = envId ?? 'master';
-    final url = '$_baseUrl/spaces/${_client.spaceId}'
+    final url =
+        '$_baseUrl/spaces/${_client.spaceId}'
         '/environments/$environmentId/entries/'
         '$entryID?access_token=${_client.accessToken}';
 
@@ -66,17 +66,11 @@ class ContentfulDeliveryAPIRepository {
     }
   }
 
-  String? getAssetUrlFromSys({
-    required Sys sys,
-    required Includes? includes,
-  }) {
+  String? getAssetUrlFromSys({required Sys sys, required Includes? includes}) {
     if ((sys.type?.isLink ?? false) &&
         (sys.linkType?.isAsset ?? false) &&
         includes != null) {
-      return getAssetUrlFrom(
-        assetId: sys.idOrNull,
-        includes: includes,
-      );
+      return getAssetUrlFrom(assetId: sys.idOrNull, includes: includes);
     }
     return null;
   }
@@ -87,7 +81,8 @@ class ContentfulDeliveryAPIRepository {
   }) {
     final modifiedContent = content.copyWith(
       parentNodeType: content.parentNodeType,
-      subContent: content.subContent
+      subContent:
+          content.subContent
               ?.map((e) => e.copyWith(parentNodeType: content.nodeType))
               .toList() ??
           [],
@@ -121,18 +116,11 @@ AssetField? getAssetDataFrom({
   required String assetId,
   required Includes includes,
 }) {
-  final asset = _getAssetFromEntry(
-    assetId: assetId,
-    includes: includes,
-  );
+  final asset = _getAssetFromEntry(assetId: assetId, includes: includes);
   return asset?.fields;
 }
 
-String? getAssetUrlFrom({
-  Asset? asset,
-  String? assetId,
-  Includes? includes,
-}) {
+String? getAssetUrlFrom({Asset? asset, String? assetId, Includes? includes}) {
   assert(
     asset != null || (assetId != null && includes != null),
     'asset or assetId and includes must be provided',
@@ -146,10 +134,7 @@ String? getAssetUrlFrom({
     return assetUrl;
   }
   if (assetId != null && includes != null) {
-    final asset = _getAssetFromEntry(
-      assetId: assetId,
-      includes: includes,
-    );
+    final asset = _getAssetFromEntry(assetId: assetId, includes: includes);
     return getAssetUrlFrom(asset: asset);
   }
   return null;
@@ -167,9 +152,11 @@ Asset? _getAssetFromEntry({
 }
 
 String _buildQueryString(Map<String, dynamic> queryParameters) {
-  return queryParameters.entries.map((entry) {
-    final key = Uri.encodeComponent(entry.key);
-    final value = Uri.encodeComponent(entry.value.toString());
-    return '$key=$value';
-  }).join('&');
+  return queryParameters.entries
+      .map((entry) {
+        final key = Uri.encodeComponent(entry.key);
+        final value = Uri.encodeComponent(entry.value.toString());
+        return '$key=$value';
+      })
+      .join('&');
 }

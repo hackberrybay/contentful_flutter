@@ -5,7 +5,6 @@ part 'details.freezed.dart';
 part 'details.g.dart';
 
 @freezed
-
 /// [Details] contains the [Asset] and the [AssetField] details.
 /// The details are specific to the asset content type.
 /// For example if the asset is an image, the details will contain the size,
@@ -15,10 +14,7 @@ abstract class Details with _$Details {
   /// The details are specific to the asset content type.
   /// For example if the asset is an image, the details will contain the size,
   /// the dimensions and the content type.
-  const factory Details({
-    int? size,
-    ContentfulImage? image,
-  }) = _Details;
+  const factory Details({int? size, ContentfulImage? image}) = _Details;
 
   factory Details.fromJson(Map<String, dynamic> json) =>
       _$DetailsFromJson(json);

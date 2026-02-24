@@ -5,7 +5,6 @@ part 'file_field.freezed.dart';
 part 'file_field.g.dart';
 
 @freezed
-
 /// [FileField] contains the url of the file and the details of the file.
 /// The details are the url, the size, the content type and the fileName.
 /// also the dimensions and the size of the image if it's an image.

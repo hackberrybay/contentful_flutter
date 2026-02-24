@@ -5,7 +5,6 @@ part 'asset_field.freezed.dart';
 part 'asset_field.g.dart';
 
 @freezed
-
 /// [AssetField] is the field that contains the actual file.
 /// It has the title and description of the file.
 /// the file itself is in the [FileField].
