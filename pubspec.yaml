@@ -19,7 +19,7 @@ dependencies:
   collection: ^1.19.1
   logger: ^2.6.2
 
-  material_ui: any
+  material_ui: ^1.11.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
