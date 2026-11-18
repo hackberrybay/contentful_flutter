@@ -5,11 +5,8 @@ part 'data.freezed.dart';
 part 'data.g.dart';
 
 @freezed
-class Data with _$Data {
-  const factory Data({
-    Target? target,
-    String? uri,
-  }) = _Data;
+abstract class Data with _$Data {
+  const factory Data({Target? target, String? uri}) = _Data;
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 }

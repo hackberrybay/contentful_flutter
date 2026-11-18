@@ -98,7 +98,8 @@ enum ContentfulContentNodeType {
   @JsonValue('embedded-asset-block')
   embeddedAssetBlock,
 
-  /// A document. It contains a list of nodes, it could contain a paragraph or an embedded asset block.
+  /// A document. It contains a list of nodes, it could contain a paragraph
+  /// or an embedded asset block.
   @JsonValue('document')
   document,
 

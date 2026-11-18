@@ -4,11 +4,8 @@ part 'contentful_image.freezed.dart';
 part 'contentful_image.g.dart';
 
 @freezed
-class ContentfulImage with _$ContentfulImage {
-  const factory ContentfulImage({
-    int? width,
-    int? height,
-  }) = _ContentfulImage;
+abstract class ContentfulImage with _$ContentfulImage {
+  const factory ContentfulImage({int? width, int? height}) = _ContentfulImage;
 
   factory ContentfulImage.fromJson(Map<String, dynamic> json) =>
       _$ContentfulImageFromJson(json);

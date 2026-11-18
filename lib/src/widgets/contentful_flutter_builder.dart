@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs
-
 import 'package:contentful_flutter/contentful_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
@@ -43,18 +41,13 @@ class ContentfulFlutterBuilder extends StatelessWidget {
   final Widget Function(
     Content textContent,
     TextStyle style,
-    bool ignoreTextPadding,
-    EdgeInsets? padding,
-  ) textBuilder;
+    EdgeInsets? padding, {
+    bool? ignoreTextPadding,
+  })
+  textBuilder;
   final Widget Function(Widget child) blockQuoteBuilder;
-  final Widget Function(
-    String? url,
-    Widget child,
-  ) linkWidgetBuilder;
-  final Widget Function(
-    String entryId,
-    Widget child,
-  )? entryHyperlinkBuilder;
+  final Widget Function(String? url, Widget child) linkWidgetBuilder;
+  final Widget Function(String entryId, Widget child)? entryHyperlinkBuilder;
   final Widget Function(String imageUrl) imageBuilder;
   final Widget Function() dividerBuilder;
   final EdgeInsets listIdentationPadding;
@@ -76,11 +69,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
     List<InlineSpan> textSpans,
   ) {
     final subContent = content.subContent
-        ?.map(
-          (e) => e.copyWith(
-            parentNodeType: content.nodeType,
-          ),
-        )
+        ?.map((e) => e.copyWith(parentNodeType: content.nodeType))
         .toList();
     if (nodeType.isEntryHyperlink && entryHyperlinkBuilder != null) {
       return entryHyperlinkBuilder!(
@@ -96,11 +85,11 @@ class ContentfulFlutterBuilder extends StatelessWidget {
     final uri = nodeType.isHyperlink
         ? content.data?.uri
         : nodeType.isAssetHyperlink
-            ? getAssetUrlFrom(
-                assetId: content.data!.target!.sys!.idOrNull,
-                includes: includes,
-              )
-            : null;
+        ? getAssetUrlFrom(
+            assetId: content.data!.target!.sys!.idOrNull,
+            includes: includes,
+          )
+        : null;
     if (uri == null) return const SizedBox.shrink();
     return linkWidgetBuilder(
       uri,
@@ -138,7 +127,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
       return textBuilder(
         content,
         getTextStyle(content),
-        ignoreTextPadding,
+        ignoreTextPadding: ignoreTextPadding,
         const EdgeInsets.symmetric(horizontal: 16),
       );
     } else if (nodeType.isBlockquote) {
@@ -154,12 +143,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
       for (var i = 0; i < subContent!.length; i++) {
         final item = subContent[i];
         if (item.nodeType.isText) {
-          textSpans.add(
-            TextSpan(
-              text: item.value,
-              style: getTextStyle(item),
-            ),
-          );
+          textSpans.add(TextSpan(text: item.value, style: getTextStyle(item)));
         } else if (item.nodeType.hasHyperlink) {
           textSpans.add(
             WidgetSpan(
@@ -198,7 +182,8 @@ class ContentfulFlutterBuilder extends StatelessWidget {
       );
     } else if (nodeType.isListItem) {
       final isOrderedList = content.parentNodeType?.isOrderedList ?? false;
-      // If it is a list item, the sublist a list of paragraphs or assets or lists
+      // If it is a list item, the sublist a list of paragraphs or assets or
+      // lists
       return Padding(
         padding: listIdentationPadding,
         child: _buildListItem(subContent!, index: isOrderedList ? index : null),
@@ -217,7 +202,8 @@ class ContentfulFlutterBuilder extends StatelessWidget {
       return Column(children: indexedList);
     }
     return const Text(
-      'This text should not be shown, please check it or open an issue in the repository',
+      'This text should not be shown, please check it or open an issue in the'
+      ' repository',
     );
   }
 
@@ -238,10 +224,7 @@ class ContentfulFlutterBuilder extends StatelessWidget {
           );
         }).toList();
         return isRow ?? false
-            ? Row(
-                mainAxisSize: MainAxisSize.min,
-                children: list,
-              )
+            ? Row(mainAxisSize: MainAxisSize.min, children: list)
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: list,
@@ -301,22 +284,16 @@ class ContentfulFlutterBuilder extends StatelessWidget {
     switch (type) {
       case ContentfulContentNodeType.headingOne:
         result = headingOneStyle;
-        break;
       case ContentfulContentNodeType.headingTwo:
         result = headingTwoStyle;
-        break;
       case ContentfulContentNodeType.headingThree:
         result = headingThreeStyle;
-        break;
       case ContentfulContentNodeType.headingFour:
         result = headingFourStyle;
-        break;
       case ContentfulContentNodeType.headingFive:
         result = headingFiveStyle;
-        break;
       case ContentfulContentNodeType.headingSix:
         result = headingSixStyle;
-        break;
       default:
         break;
     }
@@ -324,8 +301,9 @@ class ContentfulFlutterBuilder extends StatelessWidget {
     final finalResult = (result ?? textStyle).copyWith(
       fontWeight: (marks?.hasBold ?? false) ? FontWeight.bold : null,
       fontStyle: (marks?.hasItalic ?? false) ? FontStyle.italic : null,
-      decoration:
-          (marks?.hasUnderline ?? false) ? TextDecoration.underline : null,
+      decoration: (marks?.hasUnderline ?? false)
+          ? TextDecoration.underline
+          : null,
     );
     return finalResult;
   }

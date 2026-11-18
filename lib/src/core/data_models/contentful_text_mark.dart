@@ -5,10 +5,9 @@ part 'contentful_text_mark.freezed.dart';
 part 'contentful_text_mark.g.dart';
 
 @freezed
-class ContentfulTextMark with _$ContentfulTextMark {
-  const factory ContentfulTextMark({
-    ContentfulTextMarksEnum? type,
-  }) = _ContentfulTextMark;
+abstract class ContentfulTextMark with _$ContentfulTextMark {
+  const factory ContentfulTextMark({ContentfulTextMarksEnum? type}) =
+      _ContentfulTextMark;
 
   factory ContentfulTextMark.fromJson(Map<String, dynamic> json) =>
       _$ContentfulTextMarkFromJson(json);

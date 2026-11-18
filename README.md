@@ -13,13 +13,6 @@ Contentful package for flutter, features included in the package:
 
 ✅ We implemented ContentfulFlutterBuilder so it saves you time to implement the widgets and the logic to return the article especially with bulleted and numbered lists.
 
-
-## Demo 
-
-### Watch the video
-
-[![Watch the video](https://github.com/hackberrybay/contentful_flutter/assets/34738373/18f80409-171b-45ad-bada-75a0514eb07c)](https://github.com/hackberrybay/contentful_flutter/assets/34738373/b1b3e6fd-b531-4955-b190-dd386549db2e)
-
 ## Installation 💻
 
 Add `contentful_flutter` to your `pubspec.yaml`:

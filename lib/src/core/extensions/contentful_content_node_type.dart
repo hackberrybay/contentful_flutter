@@ -38,7 +38,8 @@ extension ContentfulContentNodeTypeX on ContentfulContentNodeType {
   /// Returns `true` if this [ContentfulContentNodeType] is a paragraph
   bool get isParagraph => this == ContentfulContentNodeType.paragraph;
 
-  /// Returns `true` if this [ContentfulContentNodeType] is an embedded-asset-block
+  /// Returns `true` if this [ContentfulContentNodeType] is an
+  /// embedded-asset-block
   bool get isEmbeddedAssetBlock =>
       this == ContentfulContentNodeType.embeddedAssetBlock;
 

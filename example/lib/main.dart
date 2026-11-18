@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key, required this.title});
+
   final String title;
 
   @override
@@ -44,6 +45,7 @@ class MyHomePage extends StatelessWidget {
               json as Map<String, dynamic>,
               (json) => ExampleDataModel.fromJson(json as Map<String, dynamic>),
             ),
+            contentType: 'example',
           ),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
@@ -75,9 +77,9 @@ class MyHomePage extends StatelessWidget {
                             textBuilder: (
                               content,
                               style,
-                              ignorePadding,
-                              padding,
-                            ) {
+                              padding, {
+                              bool? ignoreTextPadding,
+                            }) {
                               return Text(
                                 content.value ?? '',
                                 style: style,
@@ -111,8 +113,9 @@ class MyHomePage extends StatelessWidget {
                                 ? SvgPicture.network(imageUrl)
                                 : Image.network(imageUrl),
                             dividerBuilder: () => const Divider(),
-                            listIdentationPadding:
-                                const EdgeInsets.only(left: 16),
+                            listIdentationPadding: const EdgeInsets.only(
+                              left: 16,
+                            ),
                             textStyle: textStyle,
                             headingOneStyle: textStyle.copyWith(fontSize: 32),
                             headingTwoStyle: textStyle.copyWith(fontSize: 24),
@@ -121,7 +124,7 @@ class MyHomePage extends StatelessWidget {
                             headingFiveStyle: textStyle.copyWith(fontSize: 14),
                             headingSixStyle: textStyle.copyWith(fontSize: 12),
                           ),
-                          const SizedBox(height: 8)
+                          const SizedBox(height: 8),
                         ],
                       );
                     },
