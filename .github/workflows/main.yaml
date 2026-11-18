@@ -23,6 +23,10 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_channel: stable
+      # Pinned: the shared workflow needs Dart >= 3.12 (Flutter >= 3.44), and
+      # Flutter >= 3.47 deprecates package:flutter/material.dart. Bump together
+      # with claire-app.
+      flutter_version: "3.44.9"
       # Generated .freezed/.g files are git-ignored, so build them first.
       setup: dart run build_runner build --delete-conflicting-outputs
       run_bloc_lint: false
