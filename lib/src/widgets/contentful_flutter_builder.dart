@@ -1,6 +1,6 @@
 import 'package:contentful_flutter/contentful_flutter.dart';
-import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:material_ui/material_ui.dart';
 
 typedef ContentfulEitherDataType = Either<List<Content>, String?>;
 

@@ -4,6 +4,7 @@ analyzer:
     - lib/**.g.dart
     - lib/**.freezed.dart
     - packages/contentful_flutter/**
+    - build/**
   errors:
     invalid_annotation_target: ignore
 
