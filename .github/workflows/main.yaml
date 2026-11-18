@@ -23,3 +23,9 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_channel: stable
+      # Same Flutter as claire-app (.puro.json); bump together on upgrades.
+      flutter_version: "3.41.4"
+      # Generated .freezed/.g files are git-ignored, so build them first.
+      setup: dart run build_runner build --delete-conflicting-outputs
+      run_bloc_lint: false
+      min_coverage: 0
