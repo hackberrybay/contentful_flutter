@@ -20,14 +20,31 @@ jobs:
       modified_files_only: false
 
   build:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
-    with:
-      flutter_channel: stable
-      # Pinned: the shared workflow needs Dart >= 3.12 (Flutter >= 3.44), and
-      # Flutter >= 3.47 deprecates package:flutter/material.dart. Bump together
-      # with claire-app.
-      flutter_version: "3.44.9"
-      # Generated .freezed/.g files are git-ignored, so build them first.
-      setup: dart run build_runner build --delete-conflicting-outputs
-      run_bloc_lint: false
-      min_coverage: 0
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          # Same Flutter as claire-app (.puro.json). Bump together with the app.
+          flutter-version: "3.41.4"
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      # .freezed/.g files are git-ignored, so generate them before analyzing.
+      - name: Generate code
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Check formatting
+        run: dart format --set-exit-if-changed lib
+
+      - name: Analyze
+        run: flutter analyze lib
+
+      # The package has no test/ folder yet; run tests once one exists.
+      - name: Test
+        if: hashFiles('test/**') != ''
+        run: flutter test
