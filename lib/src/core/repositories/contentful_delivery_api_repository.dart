@@ -8,10 +8,9 @@ import 'package:logger/logger.dart';
 
 class ContentfulDeliveryAPIRepository {
   const ContentfulDeliveryAPIRepository({
-    required ContentfulClient client,
-    String baseUrl = 'https://cdn.contentful.com',
-  }) : _client = client,
-       _baseUrl = baseUrl;
+    required this._client,
+    this._baseUrl = 'https://cdn.contentful.com',
+  });
 
   /// Fetch and parse the given type of Contentful model.
   /// Parses the language to utf8. Throws Exception on error.
